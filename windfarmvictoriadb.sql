@@ -4,8 +4,8 @@ SET time_zone = "+00:00";
 
 SET NAMES utf8mb4;
 
-CREATE DATABASE IF NOT EXISTS `windfarmaustraliadb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `windfarmaustraliadb`;
+CREATE DATABASE IF NOT EXISTS `windfarmvictoriadb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `windfarmvictoriadb`;
 
 DROP TABLE IF EXISTS `community_feedback`;
 CREATE TABLE `community_feedback` (
@@ -45,13 +45,15 @@ CREATE TABLE `electricity_generation` (
   `Turbine_ID` int(11) DEFAULT NULL,
   `Generation_Date` date DEFAULT NULL,
   `Energy_MWh` decimal(10,2) DEFAULT NULL,
-  `Downtime_Hours` decimal(10,2) DEFAULT NULL
+  `Downtime_Hours` decimal(10,2) DEFAULT NULL,
+  `Wind_Speed_mps` decimal(5,2) DEFAULT NULL,
+  `Energy_Supplied_Grid_MWh` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `electricity_generation` (`Generation_ID`, `Turbine_ID`, `Generation_Date`, `Energy_MWh`, `Downtime_Hours`) VALUES
-(1, 1, '2025-01-01', 45.50, 1.50),
-(2, 2, '2025-01-02', 62.75, 0.75),
-(3, 3, '2025-01-03', 78.25, 2.00);
+INSERT INTO `electricity_generation` (`Generation_ID`, `Turbine_ID`, `Generation_Date`, `Energy_MWh`, `Downtime_Hours`, `Wind_Speed_mps`, `Energy_Supplied_Grid_MWh`) VALUES
+(1, 1, '2025-01-01', 45.50, 1.50, 7.80, 44.10),
+(2, 2, '2025-01-02', 62.75, 0.75, 9.20, 61.20),
+(3, 3, '2025-01-03', 78.25, 2.00, 10.50, 76.50);
 
 DROP TABLE IF EXISTS `environmental_assessments`;
 CREATE TABLE `environmental_assessments` (
@@ -149,13 +151,14 @@ CREATE TABLE `wind_farms` (
   `Farm_Name` varchar(150) DEFAULT NULL,
   `Location_ID` int(11) DEFAULT NULL,
   `Start_Date` date DEFAULT NULL,
-  `Project_Status` varchar(100) DEFAULT NULL
+  `Project_Status` varchar(100) DEFAULT NULL,
+  `Construction_Progress_Percent` decimal(5,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `wind_farms` (`Farm_ID`, `Farm_Name`, `Location_ID`, `Start_Date`, `Project_Status`) VALUES
-(1, 'Ali Green Wind Farm', 1, '2023-04-15', 'Operational'),
-(2, 'Fatima Renewable Energy Farm', 2, '2024-02-10', 'Under Construction'),
-(3, 'Hamza Power Wind Farm', 3, '2024-08-20', 'Planning');
+INSERT INTO `wind_farms` (`Farm_ID`, `Farm_Name`, `Location_ID`, `Start_Date`, `Project_Status`, `Construction_Progress_Percent`) VALUES
+(1, 'Ali Green Wind Farm', 1, '2023-04-15', 'Operational', 100.00),
+(2, 'Fatima Renewable Energy Farm', 2, '2024-02-10', 'Under Construction', 55.00),
+(3, 'Hamza Power Wind Farm', 3, '2024-08-20', 'Planning', 0.00);
 
 ALTER TABLE `community_feedback`
   ADD PRIMARY KEY (`Feedback_ID`),
